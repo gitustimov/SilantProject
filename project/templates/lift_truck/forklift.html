@@ -1,0 +1,87 @@
+{% extends '../default.html' %}
+{% csrf_token %}
+{% load static %}
+
+{% block title %}
+Forklift
+{% endblock title %}
+
+
+{% block content %}
+    <br>
+    <link link href="{% static 'css/default.css'%}" rel="stylesheet" />
+    <link link href="{% static 'css/forklifts.css'%}" rel="stylesheet" />
+    <p class="login-title">Машина: {{ forklift.model_equipment.title }}</p>
+    <p class="login-title">Заводской номер: {{ forklift.machine_serial_number }}</p>
+    <div class="buttons">
+        <button id="table1-button" class="button"><a href="{% url 'forklift_list' %}">Показать машину</a></button>
+        <button id="table2-button" class="button"><a href="{% url 'to_list' %}">Показать TO</a></button>
+        <button id="table3-button" class="button"><a href="{% url 'claim_list' %}">Показать рекламации</a></button>
+    </div>
+        <hr>
+    <div id="table-container">
+        <table id = "table1" class="common-table">
+        <h5 id = "table_header_1" style="display:block;" class="login-title">Информация о комплектации и технических характеристиках Вашей техники</h5>
+        {% if forklift %}
+        <thead>
+            <tr>
+                <th> Зав. № машины </th>
+                <th> Модель техники </th>
+                <th> Модель двигателя </td>
+                <th> Зав. № двигателя </th>
+                <th> Модель трансмиссии </td>
+                <th> Зав. № трансмиссии </th>
+                <th> Модель ведущего моста </th>
+                <th> Зав. № ведущего моста </td>
+                <th> Модель управляемого моста </th>
+                <th> Зав. № управляемого моста </th>
+                <th> Договор поставки №, дата </th>
+                <th> Дата отгрузки с завода </th>
+                <th> Грузополучатель (конечный потребитель) </th>
+                <th> Адрес поставки (эксплуатации) </th>
+                <th> Комплектация (доп. опции) </th>
+                <th> Клиент </th>
+                <th> Сервисная компания </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{{ forklift.machine_serial_number }}</td>
+                <td><a href="{% url 'model_equipment_detail' forklift.model_equipment.pk %}">{{ forklift.model_equipment.title }}</a></td>
+                <td><a href="{% url 'engine_model_detail' forklift.engine_model.pk %}">{{ forklift.engine_model.title }}</a></td>
+                <td>{{ forklift.engine_serial_number }}</td>
+                <td><a href="{% url 'transmission_model_detail' forklift.transmission_model.pk %}">{{ forklift.transmission_model.title }}</a></td>
+                <td>{{ forklift.transmission_serial_number }}</td>
+                <td><a href="{% url 'drive_axle_model_detail' forklift.drive_axle_model.pk %}">{{ forklift.drive_axle_model.title }}</a></td>
+                <td>{{ forklift.drive_axle_serial_number }}</td>
+                <td><a href="{% url 'controlled_bridge_model_detail' forklift.controlled_bridge_model.pk %}">{{ forklift.controlled_bridge_model.title }}</a></td>
+                <td>{{ forklift.controlled_bridge_serial_number }}</td>
+                <td>{{ forklift.delivery_contract }}</td>
+                <td>{{ forklift.date_of_shipment }}</td>
+                <td>{{ forklift.end_user }}</td>
+                <td>{{ forklift.delivery_address|truncatechars:20 }}</td>
+                <td>{{ forklift.equipment|truncatewords:30 }}</td>
+                <td>{{ forklift.client.title }}</td>
+                <td>{{ forklift.service_company.title }}</td>
+            </tr>
+        </tbody>
+        </table>
+        {% else %}
+            <h2>Техника отсутствует!</h2>
+        {% endif %}
+        </hr>
+        {% if user.is_superuser or user_in_group_manager %}
+            <div class="buttons">
+                <button class="button"><a href="{% url 'forklift_create' %}" class="a-0">Создать машину</a></button>
+                <button class="button"><a href="{% url 'forklift_update' forklift.pk %}" class="a-0">Редактировать машину</a></button>
+                <button class="button"><a href="{% url 'forklift_delete' forklift.pk %}" class="a-0">Удалить машину</a></button>
+            </div>
+        {% endif %}
+        
+        
+    </div>
+    {% block extra_js %}
+        <script src="{% static 'scripts/hokkscript.js' %}"></script>
+    {% endblock %}
+{% endblock content %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SILANT</title>
+    <meta name="description" content="Сервисная книжка для вилочных погрузчиков" />
+    {% load static %}
+    <link href="{% static 'css/default.css'%}" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="main-nav">
+                <li><img class="silant_text" src="{% static 'images/noroot.png' %}" alt="Мой Силант" width="200"
+                        height="60"></li>
+                <li><a href="{% url 'forklift_list' %}" class="li-text">Сервисная книжка "Мой Силант"</a>
+                </li>
+                <li class="li-login"><button class="button-login" onclick="location.href='/'">Авторизация</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+
+        {% endblock content %}
+    </main>
+
+    <footer>
+        <div class="div-footer">
+            <div class="div-footer-left">
+                <p class="div-footer-text">+7-800-700-52-65</p>
+            </div>
+            <div class="div-footer-right">
+                <p class="div-footer-text">Мой Силант 2023</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
