@@ -2,12 +2,9 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from django.urls import include, path
 from .views import *
-# from rest_framework.schemas import get_schema_view
 from django.contrib.auth.decorators import login_required
 from rest_framework import routers
 
-
-# router = routers.DefaultRouter()
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -25,11 +22,6 @@ schema_view = get_schema_view(
             url="https://opensource.org/licenses/MIT",
         ),
     ),
-    #     public=True,
-    # permission_classes=(permissions.AllowAny,),
-    # permission_classes=(permissions.IsAdminUser,),
-    # permission_classes=(permissions.IsAuthenticated ,),
-    #     permission_classes=(permissions.IsAuthenticatedOrReadOnly,),
 )
 
 urlpatterns = [
