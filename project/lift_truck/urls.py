@@ -124,6 +124,4 @@ urlpatterns = [
     path('api/forklift/', ForkliftAPIView.as_view()),
     path('api/to/', ToAPIView.as_view()),
     path('api/claim/', ClaimAPIView.as_view()),
-    #     path('openapi', get_schema_view(title="API Silant",
-    #          description="API Silant", version="v 1.0.0"), name='openapi-schema'),
 ]
